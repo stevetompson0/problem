@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import com.steve.TypeDefinition.TypeDefinition;
 
 /**
@@ -22,22 +26,30 @@ import com.steve.TypeDefinition.TypeDefinition;
  *
  */
 public abstract class BaseProblem implements Problem {
-	private int type; // type of the problem
-	private String json_data; // json data that is passed in
-	private String name; // hashed id for this problem
+	// type of the problem
+	private int type; 	
+	// json data that is passed in
+	private String json_data; 	
+	// hashed id for this problem
+	private String name; 
 
-	private List<String> mVariables = new ArrayList<String>(); // variable
-																// declaration
-																// code
-	private List<String> mGenerator = new ArrayList<String>(); // varaible
-																// processing
-																// code
-	private List<String> mFields = new ArrayList<String>(); // variables in body
-	private List<String> mText = new ArrayList<String>(); // text in body
-	private List<String> mAnswerFields = new ArrayList<String>(); // varaible in
-																	// answer
-	private List<String> mAnswerText = new ArrayList<String>(); // text in
-																// answer
+	// variable declaration code
+	private List<String> mVariables = new ArrayList<String>(); 
+	
+	// variable processing code
+	private List<String> mGenerator = new ArrayList<String>(); 
+	
+	// variables in body
+	private List<String> mFields = new ArrayList<String>(); 
+	
+	// text in body
+	private List<String> mText = new ArrayList<String>(); 
+	
+	// variables in answer
+	private List<String> mAnswerFields = new ArrayList<String>(); 
+	
+	// text in answer
+	private List<String> mAnswerText = new ArrayList<String>(); 
 
 	public BaseProblem(int type, String json_data, String name) {
 		this.type = type;

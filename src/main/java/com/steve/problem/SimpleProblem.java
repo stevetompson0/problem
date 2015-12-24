@@ -1,5 +1,9 @@
 package com.steve.problem;
 
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
 import com.steve.parser.Parser;
 import com.steve.parser.SimpleProblemParser;
 
@@ -12,15 +16,20 @@ import com.steve.parser.SimpleProblemParser;
  */
 
 public class SimpleProblem extends BaseProblem implements Problem{
-	private Parser parser = new SimpleProblemParser(this);
+	private Parser parser;
 	
-	private SimpleProblem(int type, String json_data, String name) {
+	public SimpleProblem(int type, String json_data, String name) throws IOException, ParseException {
 		super(type, json_data, name);
+		this.parser = new SimpleProblemParser(this);
 	}
 
 	@Override
 	public void parse() {
-		// TODO Auto-generated method stub
+		
+		parser.parseVariable();
+		parser.parseGenerator();
+		parser.parseBody();
+		parser.parseAnswer();
 		
 	}
 
