@@ -56,13 +56,26 @@ public class SimpleProblemParser implements Parser{
 
 	@Override
 	public void parseBody() {
-		// TODO Auto-generated method stub
+		String buf = (String) jsonObj.get(SimpleProblemParser.BODY);
+		List<String> fields = new ArrayList<String>();
+		List<String> text = new ArrayList<String>();
 		
+		parserTextAndFields(buf, text, fields);
+		
+		this.problem.setText(text);
+		this.problem.setFields(fields);
 	}
 
 	@Override
 	public void parseAnswer() {
-		// TODO Auto-generated method stub
+		String buf = (String) jsonObj.get(SimpleProblemParser.ANSWER);
+		List<String> fields = new ArrayList<String>();
+		List<String> text = new ArrayList<String>();
+		
+		parserTextAndFields(buf, text, fields);
+		
+		this.problem.setAnswerText(text);
+		this.problem.setAnswerFields(fields);
 		
 	}
 	
@@ -78,6 +91,52 @@ public class SimpleProblemParser implements Parser{
 			list.add(line.toString());
 		}
 		return list;
+	}
+	
+	/**
+	 * parserTextAndFields -- helper function used to parser body and answer
+	 * 						  to List
+	 * @param buf: string which stores origin text and fields
+	 * @param text: List to store text
+	 * @param field: List to store fields
+	 */
+	private void parserTextAndFields(String buf, List<String> text, List<String> fields) {
+		// index of reading character
+		int counter = 0;
+
+		// boolean indicating whether we are reading fields or texts
+		boolean reading_problem_text = true;
+
+		// store current text buffer
+		String current_text = "";
+
+		for (int i = 0; i < buf.length(); i++) {
+			if (buf.charAt(i) == '$' && (i == 0 || buf.charAt(i - 1) != '\\')) {
+				counter = (counter + 1) % 2;
+				if (counter == 1) {
+					reading_problem_text = true;
+				} else {
+					reading_problem_text = false;
+				}
+
+				if (reading_problem_text) {
+					text.add(current_text);
+				} else {
+					fields.add(current_text);
+				}
+				current_text = "";
+				continue;
+			} else if ((buf.charAt(i) == '\\') && (i == 0 || buf.charAt(i - 1) != '\\')) {
+				continue;
+			}
+			current_text += buf.charAt(i);
+		}
+
+		if (reading_problem_text) {
+			fields.add(current_text);
+		} else {
+			text.add(current_text);
+		}
 	}
 	
 	

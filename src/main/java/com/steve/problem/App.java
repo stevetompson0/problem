@@ -53,7 +53,7 @@ public class App
 			if ((long) jsonInput.get("TYPE") == 1) {
 				problem = new SimpleProblem(1, obj.toString(), "id1");
 				problem.parse();
-				List<String> variables = problem.getGenerator();
+				List<String> variables = problem.getAnswerText();
 				for (String item: variables) {
 					System.out.println(item);
 				}
