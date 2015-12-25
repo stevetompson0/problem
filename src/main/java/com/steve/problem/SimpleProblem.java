@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
 
+import com.steve.builder.Builder;
+import com.steve.builder.SimpleProblemBuilder;
 import com.steve.parser.Parser;
 import com.steve.parser.SimpleProblemParser;
 
@@ -17,26 +19,23 @@ import com.steve.parser.SimpleProblemParser;
 
 public class SimpleProblem extends BaseProblem implements Problem{
 	private Parser parser;
+	private Builder builder;
 	
 	public SimpleProblem(int type, String json_data, String name) throws IOException, ParseException {
 		super(type, json_data, name);
 		this.parser = new SimpleProblemParser(this);
+		this.builder = new SimpleProblemBuilder(this);
 	}
 
 	@Override
 	public void parse() {
-		
-		parser.parseVariable();
-		parser.parseGenerator();
-		parser.parseBody();
-		parser.parseAnswer();
+		parser.parseProblem();
 		
 	}
 
 	@Override
 	public void build() {
-		// TODO Auto-generated method stub
-		
+		builder.generateProblem();
 	}
 	
 	

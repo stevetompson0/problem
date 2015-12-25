@@ -21,4 +21,8 @@ public interface Parser {
 	// parse the given problem's answer fields and text section
 	public void parseAnswer();
 	
+	// parse the whole problem
+	// sequentially call the above four functions
+	public void parseProblem();
+	
 }

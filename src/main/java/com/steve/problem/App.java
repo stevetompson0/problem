@@ -42,6 +42,7 @@ public class App
     	JSONParser jsonParser = new JSONParser();
     	
     	Problem problem;
+    	
     	try {
 			Object input = jsonParser.parse(new BufferedReader(new StringReader(obj.toString())));
 			JSONObject jsonInput = (JSONObject) input;
@@ -57,6 +58,7 @@ public class App
 				for (String item: variables) {
 					System.out.println(item);
 				}
+				problem.build();
 			}
 			
 		} catch (IOException e) {

@@ -79,6 +79,14 @@ public class SimpleProblemParser implements Parser{
 		
 	}
 	
+	@Override
+	public void parseProblem() {
+		parseVariable();
+		parseGenerator();
+		parseBody();
+		parseAnswer();
+	}
+	
 	/** jsonArrayConvertToList -- used to convert JSON array to ArrayList
 	 * 
 	 * @param key: key for the JSONArray in the jsonObj
@@ -138,6 +146,6 @@ public class SimpleProblemParser implements Parser{
 			text.add(current_text);
 		}
 	}
-	
+
 	
 }

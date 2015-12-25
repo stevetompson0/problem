@@ -12,14 +12,14 @@ import java.io.PrintWriter;
 
 public interface Builder {
 	
-	public void buildConstructor(PrintWriter output, String filename);
+	public void buildConstructor(PrintWriter output);
 	
 	public void buildHeader(PrintWriter output);
 	
-	public void buildGenerator(PrintWriter output, String name);
+	public void buildGenerator(PrintWriter output);
 	
-	public void buildMain(PrintWriter output, String classname);
+	public void buildMain(PrintWriter output);
 	
-	public void generateProblem(String name) throws Exception;
+	public void generateProblem();
 
 }
