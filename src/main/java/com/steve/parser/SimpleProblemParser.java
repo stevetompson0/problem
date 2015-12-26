@@ -23,8 +23,8 @@ public class SimpleProblemParser implements Parser{
 	// These constants are keys in JSON from problem
 	private static final String VARIABLE = "VARIABLE";
 	private static final String GENERATOR = "GENERATOR";
-	private static final String BODY = "BODY";
-	private static final String ANSWER = "ANSWER";
+	public static final String BODY = "BODY";
+	public static final String ANSWER = "ANSWER";
 	
 	// problem -- Problem instance for this parser
 	private Problem problem;

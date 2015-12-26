@@ -28,7 +28,7 @@ public class App
     	JSONArray generatorList = new JSONArray();
     	generatorList.add("a1 = RandomPackage.RandomNum(1, 12);");
     	generatorList.add("a2 = RandomPackage.RandomNum(1, 12);");
-    	generatorList.add("a3 = a1 * a2");
+    	generatorList.add("a3 = a1 * a2;");
     	obj.put("GENERATOR", generatorList);
     	
     	obj.put("BODY", "What is the result of $a1$ * $a2$?");
