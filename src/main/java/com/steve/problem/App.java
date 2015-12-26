@@ -23,6 +23,7 @@ public class App
     	JSONArray variableList = new JSONArray();
     	variableList.add("integer a1");
     	variableList.add("integer a2");
+    	variableList.add("integer a3");
     	obj.put("VARIABLE", variableList);
     	
     	JSONArray generatorList = new JSONArray();
