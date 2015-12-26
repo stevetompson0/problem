@@ -67,39 +67,7 @@ public class SimpleProblemBuilder implements Builder{
 
 	@Override
 	public void buildGenerator(PrintWriter output) {
-		buildPDFGenerator(output);
 		buildJSONGenerator(output);
-	}
-	
-	private void buildPDFGenerator(PrintWriter output) {
-		List<String> mGenerator = problem.getGenerator();
-		List<String> mText = problem.getText();
-		List<String> mFields = problem.getFields();
-		
-		// create PDF generator
-		output.println("\tpublic void generatePDF() throws Exception");
-		output.println("\t{");
-		output.println("");
-		for (int i = 0; i < mGenerator.size(); i++) {
-			String v = (String) mGenerator.get(i);
-			output.println("\t\t" + v);
-		}
-
-		output.println("\t\tPrintWriter output= new PrintWriter(System.out);");
-
-		for (int i = 0; i < mText.size(); i++) {
-			output.println("\t\toutput.print(\"" + ((String) mText.get(i)) + "\");");
-			if (i < mFields.size()) {
-				String variable = (String) mFields.get(i);
-				output.println("\t\toutput.print(" + variable + ");");
-			}
-		}
-
-		output.println("\t\toutput.println();");
-
-		output.println("\t\toutput.close();");
-
-		output.println("\t}");	
 	}
 	
 	/**
