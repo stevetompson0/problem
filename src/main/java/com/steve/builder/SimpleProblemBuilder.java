@@ -13,6 +13,7 @@ import com.steve.TypeDefinition.TypeDefinition;
 import com.steve.problem.Problem;
 import static com.steve.problem.SimpleProblem.BODY;
 import static com.steve.problem.SimpleProblem.ANSWER;
+import com.steve.util.CommandUtils;
 
 /**
  * SimpleProblemBuilder -- Used to generate java source code from parsed problem,
@@ -22,13 +23,13 @@ import static com.steve.problem.SimpleProblem.ANSWER;
  */
 public class SimpleProblemBuilder implements Builder{
 	// dependency class path
-	private static final String CLASS_PATH = "target/classes";
+	public static final String CLASS_PATH = "target/classes";
 	// path for storage directory
-	private static final String PATH_TO_STORE = "/Users/steve/problem/";
+	public static final String PATH_TO_STORE = "/Users/steve/problem/";
 	// directory name to store source
 	private static final String SOURCE_DIRECTORY_NAME = "source";
 	// directory name to store bytecode
-	private static final String BYTE_DIRECTORY_NAME = "byte";
+	public static final String BYTE_DIRECTORY_NAME = "byte";
 	// File of the general storage directory
 	private static final File STORE_DIRECTORY = new File(SimpleProblemBuilder.PATH_TO_STORE);
 	// File of the source storage directory
@@ -175,9 +176,10 @@ public class SimpleProblemBuilder implements Builder{
 				+ problem.getName() + ".java";
 		String command = String.format("javac -cp %s -d %s %s", SimpleProblemBuilder.CLASS_PATH, byteDirectory, sourceFile);
 		try {
-			int result = runProcess(command);
+			int result = CommandUtils.runProcess(command);
 			// check whether it succeeds
 			if (result != 0) {
+				//TODO: log the error
 				System.out.println("compile fails");
 			}
 			else {
@@ -194,21 +196,6 @@ public class SimpleProblemBuilder implements Builder{
 		
 	}
 	
-	private static int runProcess(String command) throws IOException, InterruptedException {
-		Process pro = Runtime.getRuntime().exec(command);
-		printLines(command + " stdout:", pro.getInputStream());
-		printLines(command + " stderr:", pro.getErrorStream());
-		pro.waitFor();
-		System.out.println(command + " exitValue() " + pro.exitValue());
-		return pro.exitValue();
-	}
-
-	private static void printLines(String name, InputStream ins) throws IOException {
-		String line = null;
-		BufferedReader in = new BufferedReader(new InputStreamReader(ins));
-		while ((line = in.readLine()) != null) {
-			System.out.println(name + " " + line);
-		}
-	}
+	
 
 }

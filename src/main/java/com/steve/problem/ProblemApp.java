@@ -1,14 +1,8 @@
 package com.steve.problem;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.List;
+// from builder get BuildPath
+import com.steve.builder.SimpleProblemBuilder;
+import com.steve.util.CommandUtils;
 
 /**
  * Hello world!
@@ -16,58 +10,58 @@ import java.util.List;
  */
 public class ProblemApp 
 {
-    public static void main( String[] args )
+	// mode constant for fetch a problem instance
+	public static final int FETCH_MODE = 0;
+	// mode constant for creating a problem
+	public static final int CREATE_MODE = 1;
+	
+	// exit status code
+	public static final int CREATE_SUCCESS = 1;
+	public static final int CREATE_ERROR = 2;
+	public static final int FETCH_SUCCESS = 3;
+	public static final int FETCH_ERROR = 4;
+	
+	
+    public static void main(String[] args)
     {
-    	JSONObject obj = new JSONObject();
-    	// put variable json list
-    	JSONArray variableList = new JSONArray();
-    	variableList.add("integer a1");
-    	variableList.add("integer a2");
-    	variableList.add("integer a3");
-    	obj.put("VARIABLE", variableList);
     	
-    	JSONArray generatorList = new JSONArray();
-    	generatorList.add("a1 = RandomPackage.RandomNum(1, 12);");
-    	generatorList.add("a2 = RandomPackage.RandomNum(1, 12);");
-    	generatorList.add("a3 = a1 * a2;");
-    	obj.put("GENERATOR", generatorList);
+    	int mode = Integer.parseInt(args[0]);
+    	// get problem id
+    	String name = args[1];
     	
-    	obj.put("BODY", "What is the result of $a1$ * $a2$?");
-    	
-    	obj.put("ANSWER", "The result is $a3$.");
-    	obj.put("TYPE", 1);
-    	
-    	
-    	System.out.println(obj.toString());
-    	
-    	JSONParser jsonParser = new JSONParser();
-    	
-    	Problem problem;
-    	
-    	try {
-			Object input = jsonParser.parse(new BufferedReader(new StringReader(obj.toString())));
-			JSONObject jsonInput = (JSONObject) input;
-			JSONArray jsonArray = (JSONArray) jsonInput.get("GENERATOR");
-			for (Object item: jsonArray) {
-				System.out.println(item);
-			}
-			
-			if ((long) jsonInput.get("TYPE") == 1) {
-				problem = new SimpleProblem(1, obj.toString(), "id2");
-				problem.parse();
-				List<String> variables = problem.getAnswerText();
-				for (String item: variables) {
-					System.out.println(item);
+    	// create problem 
+    	if (mode == ProblemApp.CREATE_MODE) {
+    		int type = Integer.parseInt(args[2]);
+	    	String jsonInput = args[3];
+	    	
+	    	Problem problem;
+				
+			if (type == 1) {
+				try {
+					problem = new SimpleProblem(type, jsonInput, name);
+					problem.parse();
+					problem.build();
+				} catch (Exception e) {
+					System.out.println("error");
+					//TODO: log the error
+					System.exit(ProblemApp.CREATE_ERROR);
 				}
-				problem.build();
 			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			System.exit(ProblemApp.CREATE_SUCCESS);
+    	}
+    	// fetch problem instance
+    	else if (mode == ProblemApp.FETCH_MODE) {
+    		String byteLocation = SimpleProblemBuilder.PATH_TO_STORE + SimpleProblemBuilder.BYTE_DIRECTORY_NAME;
+    		String command = String.format("java -cp %s:%s %s", byteLocation, SimpleProblemBuilder.CLASS_PATH, name);
+    		try {
+				CommandUtils.runProcessPrintSTDOUT(command);
+				
+			} catch (Exception e) {
+				System.out.println("error");
+				//TODO: log the error
+				System.exit(ProblemApp.FETCH_ERROR);
+			}
+    		System.exit(ProblemApp.FETCH_SUCCESS);
+    	}
     }
 }
