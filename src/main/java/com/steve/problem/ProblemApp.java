@@ -14,7 +14,7 @@ import java.util.List;
  * Hello world!
  *
  */
-public class App 
+public class ProblemApp 
 {
     public static void main( String[] args )
     {
@@ -53,7 +53,7 @@ public class App
 			}
 			
 			if ((long) jsonInput.get("TYPE") == 1) {
-				problem = new SimpleProblem(1, obj.toString(), "id1");
+				problem = new SimpleProblem(1, obj.toString(), "id2");
 				problem.parse();
 				List<String> variables = problem.getAnswerText();
 				for (String item: variables) {

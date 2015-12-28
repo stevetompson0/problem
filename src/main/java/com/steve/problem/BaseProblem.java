@@ -26,6 +26,12 @@ import com.steve.TypeDefinition.TypeDefinition;
  *
  */
 public abstract class BaseProblem implements Problem {
+	// These constants are keys in JSON from problem
+	public static final String VARIABLE = "VARIABLE";
+	public static final String GENERATOR = "GENERATOR";
+	public static final String BODY = "BODY";
+	public static final String ANSWER = "ANSWER";
+	
 	// type of the problem
 	private int type; 	
 	// json data that is passed in

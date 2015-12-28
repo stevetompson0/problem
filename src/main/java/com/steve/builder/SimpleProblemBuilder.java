@@ -11,8 +11,8 @@ import java.util.List;
 
 import com.steve.TypeDefinition.TypeDefinition;
 import com.steve.problem.Problem;
-import static com.steve.parser.SimpleProblemParser.BODY;
-import static com.steve.parser.SimpleProblemParser.ANSWER;
+import static com.steve.problem.SimpleProblem.BODY;
+import static com.steve.problem.SimpleProblem.ANSWER;
 
 /**
  * SimpleProblemBuilder -- Used to generate java source code from parsed problem,
@@ -21,16 +21,20 @@ import static com.steve.parser.SimpleProblemParser.ANSWER;
  *
  */
 public class SimpleProblemBuilder implements Builder{
+	// dependency class path
+	private static final String CLASS_PATH = "target/classes";
+	// path for storage directory
 	private static final String PATH_TO_STORE = "/Users/steve/problem/";
 	// directory name to store source
 	private static final String SOURCE_DIRECTORY_NAME = "source";
+	// directory name to store bytecode
+	private static final String BYTE_DIRECTORY_NAME = "byte";
 	// File of the general storage directory
 	private static final File STORE_DIRECTORY = new File(SimpleProblemBuilder.PATH_TO_STORE);
 	// File of the source storage directory
 	private static final File SOURCE_DIRECTORY = 
 			new File(STORE_DIRECTORY, SimpleProblemBuilder.SOURCE_DIRECTORY_NAME);
 	
-	// filename for output source
 	private PrintWriter output;
 	private Problem problem;
 	
@@ -41,6 +45,9 @@ public class SimpleProblemBuilder implements Builder{
 		output = new PrintWriter(outputFile);
 	}
 
+	/**
+	 * buildConstructor -- used to build constructor of the java source
+	 */
 	@Override
 	public void buildConstructor(PrintWriter output) {
 		// Variables
@@ -58,7 +65,10 @@ public class SimpleProblemBuilder implements Builder{
 		output.println("\t//empty constructor");
 		output.println("\tpublic " + name + "(){}");
 	}
-
+	
+	/**
+	 * buildHeader -- used to build header of the java source
+	 */
 	@Override
 	public void buildHeader(PrintWriter output) {
 		output.print("/* The problem is automatically generated. ");
@@ -67,7 +77,10 @@ public class SimpleProblemBuilder implements Builder{
 		output.println("import com.steve.RandomPackage.RandomPackage;");
 		output.println("import java.io.PrintWriter;");
 	}
-
+	
+	/**
+	 * buildGenerator -- used to build generating function of java source
+	 */
 	@Override
 	public void buildGenerator(PrintWriter output) {
 		buildJSONGenerator(output);
@@ -76,6 +89,9 @@ public class SimpleProblemBuilder implements Builder{
 	/**
 	 * buildJSONGenerator -- generator used to output JSON problem instance to
 	 * 						 System.out
+	 * 
+	 * JSON outputs is a JSON object contains 'BODY' and 'ANSWER' part
+	 * 
 	 * @param output PrintWriter to the source output file
 	 */
 	private void buildJSONGenerator(PrintWriter output) {
@@ -154,18 +170,37 @@ public class SimpleProblemBuilder implements Builder{
 		
 		output.println("}");
 		output.close();
+		String byteDirectory = SimpleProblemBuilder.PATH_TO_STORE + SimpleProblemBuilder.BYTE_DIRECTORY_NAME;
+		String sourceFile = SimpleProblemBuilder.PATH_TO_STORE + SimpleProblemBuilder.SOURCE_DIRECTORY_NAME + "/"
+				+ problem.getName() + ".java";
+		String command = String.format("javac -cp %s -d %s %s", SimpleProblemBuilder.CLASS_PATH, byteDirectory, sourceFile);
+		try {
+			int result = runProcess(command);
+			// check whether it succeeds
+			if (result != 0) {
+				System.out.println("compile fails");
+			}
+			else {
+				System.out.println("compile succeeds");
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		// compile the program
-		// javac -cp  /Users/steve/Java/problem/target/classes id1.java  
-		// java -cp  .:/Users/steve/Java/problem/target/classes id1 
 	}
 	
-	private static void runProcess(String command) throws IOException, InterruptedException {
+	private static int runProcess(String command) throws IOException, InterruptedException {
 		Process pro = Runtime.getRuntime().exec(command);
 		printLines(command + " stdout:", pro.getInputStream());
 		printLines(command + " stderr:", pro.getErrorStream());
 		pro.waitFor();
 		System.out.println(command + " exitValue() " + pro.exitValue());
+		return pro.exitValue();
 	}
 
 	private static void printLines(String name, InputStream ins) throws IOException {

@@ -12,6 +12,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.steve.problem.Problem;
+import com.steve.problem.SimpleProblem;
 
 /**
  * SimpleProblemParser -- used to parse simple problem; can be extended to
@@ -20,11 +21,6 @@ import com.steve.problem.Problem;
  *
  */
 public class SimpleProblemParser implements Parser{
-	// These constants are keys in JSON from problem
-	private static final String VARIABLE = "VARIABLE";
-	private static final String GENERATOR = "GENERATOR";
-	public static final String BODY = "BODY";
-	public static final String ANSWER = "ANSWER";
 	
 	// problem -- Problem instance for this parser
 	private Problem problem;
@@ -35,7 +31,8 @@ public class SimpleProblemParser implements Parser{
 	// jsonObj -- JSONObject returned from jsonParser
 	private JSONObject jsonObj;
 	
-	public SimpleProblemParser(Problem problem) throws IOException, ParseException {
+	public SimpleProblemParser(Problem problem) throws ParseException, IOException {
+	    
 		this.problem = problem;
 		this.jsonObj = (JSONObject) jsonParser.parse(new BufferedReader(new StringReader(this.problem.getJson())));
 	}
@@ -46,17 +43,17 @@ public class SimpleProblemParser implements Parser{
 	 */
 	@Override
 	public void parseVariable() {
-		this.problem.setVariable(jsonArrayConvertToList(SimpleProblemParser.VARIABLE));
+		this.problem.setVariable(jsonArrayConvertToList(SimpleProblem.VARIABLE));
 	}
 
 	@Override
 	public void parseGenerator() {
-		this.problem.setGenerator(jsonArrayConvertToList(SimpleProblemParser.GENERATOR));
+		this.problem.setGenerator(jsonArrayConvertToList(SimpleProblem.GENERATOR));
 	}
 
 	@Override
 	public void parseBody() {
-		String buf = (String) jsonObj.get(SimpleProblemParser.BODY);
+		String buf = (String) jsonObj.get(SimpleProblem.BODY);
 		List<String> fields = new ArrayList<String>();
 		List<String> text = new ArrayList<String>();
 		
@@ -68,7 +65,7 @@ public class SimpleProblemParser implements Parser{
 
 	@Override
 	public void parseAnswer() {
-		String buf = (String) jsonObj.get(SimpleProblemParser.ANSWER);
+		String buf = (String) jsonObj.get(SimpleProblem.ANSWER);
 		List<String> fields = new ArrayList<String>();
 		List<String> text = new ArrayList<String>();
 		
