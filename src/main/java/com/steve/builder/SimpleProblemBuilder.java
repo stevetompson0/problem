@@ -1,11 +1,8 @@
 package com.steve.builder;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -22,6 +19,11 @@ import com.steve.util.CommandUtils;
  *
  */
 public class SimpleProblemBuilder implements Builder{
+	// SUCCESS constant
+	private static final int SUCCESS = 0;
+	// ERROR constant
+	private static final int ERROR = 1;
+	
 	// dependency class path, in distribution, this CLASS_PATH should be ".",
 	//    in development, it should be "src/main/java", should skip tests when build maven package
 	public static final String CLASS_PATH = ".:problem-0.0.1-SNAPSHOT.jar";
@@ -185,7 +187,7 @@ public class SimpleProblemBuilder implements Builder{
 			}	
 			else {
 				System.out.println("compile succeeds");
-				return 0;
+				return SimpleProblemBuilder.SUCCESS;
 			}
 			
 		} catch (IOException e) {
@@ -196,7 +198,7 @@ public class SimpleProblemBuilder implements Builder{
 			e.printStackTrace();
 		}
 		
-		return 1;
+		return SimpleProblemBuilder.ERROR;
 		
 	}
 	

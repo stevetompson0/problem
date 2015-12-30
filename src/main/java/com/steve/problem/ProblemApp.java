@@ -40,7 +40,16 @@ public class ProblemApp
 				try {
 					problem = new SimpleProblem(type, jsonInput, name);
 					int result = 0;
-					problem.parse();
+					// parse the problem
+					try {
+						problem.parse();
+					}
+					catch (Exception e) {
+						// TODO: log e
+						result ++;
+					}
+					
+					// build the problem
 					result += problem.build();
 					
 					if (result > 0) {
