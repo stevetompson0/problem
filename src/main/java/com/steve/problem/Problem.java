@@ -18,7 +18,8 @@ public interface Problem {
 	public void parse();
 	
 	// use builder to build a java program
-	public void build();
+	// return 0 means succeeds, 1 means error
+	public int build();
 
 	// set variable List
 	public void setVariable(List<String> variableList);

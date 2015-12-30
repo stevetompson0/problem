@@ -22,8 +22,9 @@ import com.steve.util.CommandUtils;
  *
  */
 public class SimpleProblemBuilder implements Builder{
-	// dependency class path
-	public static final String CLASS_PATH = "target/classes";
+	// dependency class path, in distribution, this CLASS_PATH should be ".",
+	//    in development, it should be "src/main/java", should skip tests when build maven package
+	public static final String CLASS_PATH = ".:problem-0.0.1-SNAPSHOT.jar";
 	// path for storage directory
 	public static final String PATH_TO_STORE = "/Users/steve/problem/";
 	// directory name to store source
@@ -160,7 +161,7 @@ public class SimpleProblemBuilder implements Builder{
 	}
 
 	@Override
-	public void generateProblem() {
+	public int generateProblem() {
 		String name = problem.getName();
 		buildHeader(output);
 		
@@ -181,9 +182,10 @@ public class SimpleProblemBuilder implements Builder{
 			if (result != 0) {
 				//TODO: log the error
 				System.out.println("compile fails");
-			}
+			}	
 			else {
 				System.out.println("compile succeeds");
+				return 0;
 			}
 			
 		} catch (IOException e) {
@@ -193,6 +195,8 @@ public class SimpleProblemBuilder implements Builder{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return 1;
 		
 	}
 	

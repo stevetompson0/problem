@@ -39,8 +39,16 @@ public class ProblemApp
 			if (type == 1) {
 				try {
 					problem = new SimpleProblem(type, jsonInput, name);
+					int result = 0;
 					problem.parse();
-					problem.build();
+					result += problem.build();
+					
+					if (result > 0) {
+						System.out.println("error");
+						//TODO: log the error
+						System.exit(CREATE_ERROR);
+					}
+					
 				} catch (Exception e) {
 					System.out.println("error");
 					//TODO: log the error
@@ -54,7 +62,11 @@ public class ProblemApp
     		String byteLocation = SimpleProblemBuilder.PATH_TO_STORE + SimpleProblemBuilder.BYTE_DIRECTORY_NAME;
     		String command = String.format("java -cp %s:%s %s", byteLocation, SimpleProblemBuilder.CLASS_PATH, name);
     		try {
-				CommandUtils.runProcessPrintSTDOUT(command);
+				int result = CommandUtils.runProcessPrintSTDOUT(command);
+				if (result != 0) {
+					System.out.println("error");
+					System.exit(FETCH_ERROR);
+				}
 				
 			} catch (Exception e) {
 				System.out.println("error");

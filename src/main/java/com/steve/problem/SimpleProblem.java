@@ -34,8 +34,8 @@ public class SimpleProblem extends BaseProblem implements Problem{
 	}
 
 	@Override
-	public void build() {
-		builder.generateProblem();
+	public int build() {
+		return builder.generateProblem();
 	}
 	
 	

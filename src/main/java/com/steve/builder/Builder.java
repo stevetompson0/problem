@@ -25,6 +25,7 @@ public interface Builder {
 	public void buildMain(PrintWriter output);
 	
 	// use the above functions to build a java source and compile it
-	public void generateProblem();
+	// return 0 means succeeds, return 1 means error
+	public int generateProblem();
 
 }
