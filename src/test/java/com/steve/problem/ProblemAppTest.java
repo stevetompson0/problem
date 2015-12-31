@@ -5,6 +5,8 @@ import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import org.junit.Before;
 import org.junit.Rule;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -42,6 +44,8 @@ public class ProblemAppTest
     @Test
     public void testCreation()
     {
+    	// assert that PATH_TO_STORE exists
+    	assertNotNull(System.getenv("PATH_TO_STORE"));
     	// expect exit code 1 which means creating succeeds
     	exit.expectSystemExitWithStatus(1);
     	String jsonInput = input.toString();

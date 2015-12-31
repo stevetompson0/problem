@@ -25,10 +25,10 @@ public class SimpleProblemBuilder implements Builder{
 	private static final int ERROR = 1;
 	
 	// dependency class path, in distribution, this CLASS_PATH should be ".",
-	//    in development, it should be "src/main/java", should skip tests when build maven package
-	public static final String CLASS_PATH = ".:problem-0.0.1-SNAPSHOT.jar";
+	//    in development, it should be "src/main/java"
+	public static final String CLASS_PATH = ".:src/main/java";
 	// path for storage directory
-	public static final String PATH_TO_STORE = "/Users/steve/problem/";
+	public static final String PATH_TO_STORE = System.getenv("PATH_TO_STORE");
 	// directory name to store source
 	private static final String SOURCE_DIRECTORY_NAME = "source";
 	// directory name to store bytecode
