@@ -18,8 +18,50 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.9</version>
       <scope>test</scope>
     </dependency>
+	<dependency>
+		<groupId>com.github.stefanbirkner</groupId>
+		<artifactId>system-rules</artifactId>
+		<version>1.15.0</version>
+	</dependency>
+	<dependency>
+    	<groupId>com.googlecode.json-simple</groupId>
+    	<artifactId>json-simple</artifactId>
+    	<version>1.1.1</version>
+    </dependency>
   </dependencies>
+  
+  <build>
+	  <plugins>
+		  <plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-assembly-plugin</artifactId>
+			<version>2.4.1</version>
+		    <executions>
+		      <execution>
+		        <phase>package</phase>
+		        <goals>
+		          <goal>single</goal>
+		        </goals>
+		      </execution>
+		    </executions>
+		    <configuration>
+		
+		      <archive>
+		      <manifest>
+		        <addClasspath>true</addClasspath>
+		        <mainClass>com.steve.problem.ProblemApp</mainClass>
+		      </manifest>
+		      </archive>
+		
+		      <descriptorRefs>
+		        <descriptorRef>jar-with-dependencies</descriptorRef>
+		      </descriptorRefs>
+		
+		    </configuration>
+		  </plugin>
+	  </plugins>
+  </build> 
 </project>

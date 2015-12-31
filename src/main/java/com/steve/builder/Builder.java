@@ -12,14 +12,20 @@ import java.io.PrintWriter;
 
 public interface Builder {
 	
-	public void buildConstructor(PrintWriter output, String filename);
+	// build java source constructor
+	public void buildConstructor(PrintWriter output);
 	
+	// build java source header
 	public void buildHeader(PrintWriter output);
 	
-	public void buildGenerator(PrintWriter output, String name);
+	// build java source generating function
+	public void buildGenerator(PrintWriter output);
 	
-	public void buildMain(PrintWriter output, String classname);
+	// build java source main function
+	public void buildMain(PrintWriter output);
 	
-	public void generateProblem(String name) throws Exception;
+	// use the above functions to build a java source and compile it
+	// return 0 means succeeds, return 1 means error
+	public int generateProblem();
 
 }
