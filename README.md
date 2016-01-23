@@ -11,6 +11,7 @@ Setup follow Linux System Variables:
   http://stackoverflow.com/questions/603785/environment-variables-in-mac-os-x
   
   2. (Optional) If you are using it inside another project, please add the abosulte path to this jar project into classpath
+  Note: for mac user, please remember to add newest jar to Library/Java/Extensions
   
 Usage:
   1. Create a new abstract problem
