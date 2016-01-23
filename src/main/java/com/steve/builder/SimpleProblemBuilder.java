@@ -118,7 +118,7 @@ public class SimpleProblemBuilder implements Builder{
 		output.println("\t\tPrintWriter output= new PrintWriter(System.out);");
 		
 		//start to output BODY JSON
-		output.println("\t\toutput.print(\"{'" + BODY + "': \\\"\");");
+		output.println("\t\toutput.print(\"{\\\"" + BODY + "\\\": \\\"\");");
 
 		for (int i = 0; i < mText.size(); i++) {
 			output.println("\t\toutput.print(\"" + ((String) mText.get(i)) + "\");");
@@ -131,7 +131,7 @@ public class SimpleProblemBuilder implements Builder{
 		output.println("\t\toutput.print(\"\\\", \");");
 		
 		//start to output ANSWER JSON
-		output.println("\t\toutput.print(\"'" + ANSWER + "': \\\"\");");
+		output.println("\t\toutput.print(\"\\\"" + ANSWER + "\\\": \\\"\");");
 		
 		for (int i = 0; i < mAnswerText.size(); i++) {
 			output.println("\t\toutput.print(\"" + ((String) mAnswerText.get(i)) + "\");");
