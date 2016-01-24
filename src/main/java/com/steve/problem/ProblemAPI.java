@@ -70,7 +70,8 @@ public class ProblemAPI
     		String byteLocation = SimpleProblemBuilder.PATH_TO_STORE + SimpleProblemBuilder.BYTE_DIRECTORY_NAME;
     		String command = String.format("java -cp $CLASSPATH:%s:%s %s", byteLocation, SimpleProblemBuilder.CLASS_PATH, name);
     		try {
-				int result = CommandUtils.runProcessPrintSTDOUT(command);
+				int result = CommandUtils.runProcess(command);
+				
 				if (result != 0) {
 					System.out.println("error");
 					return FETCH_ERROR;
