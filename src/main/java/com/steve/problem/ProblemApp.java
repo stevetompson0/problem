@@ -71,7 +71,7 @@ public class ProblemApp
     		String byteLocation = SimpleProblemBuilder.PATH_TO_STORE + SimpleProblemBuilder.BYTE_DIRECTORY_NAME;
     		String command = String.format("java -cp %s:%s %s", byteLocation, SimpleProblemBuilder.CLASS_PATH, name);
     		try {
-				int result = CommandUtils.runProcessPrintSTDOUT(command);
+				int result = CommandUtils.runProcess(command);
 				if (result != 0) {
 					System.out.println("error1");
 					System.exit(FETCH_ERROR);
