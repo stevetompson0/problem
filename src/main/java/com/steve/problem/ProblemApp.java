@@ -133,16 +133,16 @@ public class ProblemApp
     	// fetch problem instance
     	else if (mode == ProblemApp.FETCH_MODE) {
     		String byteLocation = SimpleProblemBuilder.PATH_TO_STORE + SimpleProblemBuilder.BYTE_DIRECTORY_NAME;
-    		String command = String.format("java -cp %s:%s %s", byteLocation, SimpleProblemBuilder.CLASS_PATH, name);
+    		String command = String.format("java -cp $CLASSPATH:%s:%s %s", byteLocation, SimpleProblemBuilder.CLASS_PATH, name);
     		try {
 				int result = CommandUtils.runProcessPrintSTDOUT(command);
 				if (result != 0) {
-					System.out.println("error");
+					System.out.println("error0");
 					return FETCH_ERROR;
 				}
 				
 			} catch (Exception e) {
-				System.out.println("error");
+				System.out.println("error1");
 				//TODO: log the error
 				return ProblemApp.FETCH_ERROR;
 			}
