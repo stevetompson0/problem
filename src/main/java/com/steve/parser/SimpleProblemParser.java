@@ -137,7 +137,7 @@ public class SimpleProblemParser implements Parser{
 			current_text += buf.charAt(i);
 		}
 
-		if (reading_problem_text) {
+		if (!reading_problem_text) {
 			fields.add(current_text);
 		} else {
 			text.add(current_text);
