@@ -68,7 +68,8 @@ public class ProblemAPI
     	// fetch problem instance
     	else if (mode == ProblemApp.FETCH_MODE) {
     		String byteLocation = SimpleProblemBuilder.PATH_TO_STORE + SimpleProblemBuilder.BYTE_DIRECTORY_NAME;
-    		String command = String.format("java -cp %s:%s %s", byteLocation, SimpleProblemBuilder.CLASS_PATH, name);
+    		String CLASSPATH = System.getenv("CLASSPATH");
+    		String command = String.format("java -cp %s:%s:%s %s", CLASSPATH, byteLocation, SimpleProblemBuilder.CLASS_PATH, name);
     		try {
 				int result = CommandUtils.runProcessPrintSTDOUT(command);
 				if (result != 0) {

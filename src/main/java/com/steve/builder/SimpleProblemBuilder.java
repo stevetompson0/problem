@@ -118,7 +118,7 @@ public class SimpleProblemBuilder implements Builder{
 		output.println("\t\tPrintWriter output= new PrintWriter(System.out);");
 		
 		//start to output BODY JSON
-		output.println("\t\toutput.print(\"{'" + BODY + "': \\\"\");");
+		output.println("\t\toutput.print(\"{\\\"" + BODY + "\\\": \\\"\");");
 
 		for (int i = 0; i < mText.size(); i++) {
 			output.println("\t\toutput.print(\"" + ((String) mText.get(i)) + "\");");
@@ -131,7 +131,7 @@ public class SimpleProblemBuilder implements Builder{
 		output.println("\t\toutput.print(\"\\\", \");");
 		
 		//start to output ANSWER JSON
-		output.println("\t\toutput.print(\"'" + ANSWER + "': \\\"\");");
+		output.println("\t\toutput.print(\"\\\"" + ANSWER + "\\\": \\\"\");");
 		
 		for (int i = 0; i < mAnswerText.size(); i++) {
 			output.println("\t\toutput.print(\"" + ((String) mAnswerText.get(i)) + "\");");
@@ -177,7 +177,8 @@ public class SimpleProblemBuilder implements Builder{
 		String byteDirectory = SimpleProblemBuilder.PATH_TO_STORE + SimpleProblemBuilder.BYTE_DIRECTORY_NAME;
 		String sourceFile = SimpleProblemBuilder.PATH_TO_STORE + SimpleProblemBuilder.SOURCE_DIRECTORY_NAME + "/"
 				+ problem.getName() + ".java";
-		String command = String.format("javac -cp %s -d %s %s", SimpleProblemBuilder.CLASS_PATH, byteDirectory, sourceFile);
+		String CLASSPATH = System.getenv("CLASSPATH");
+		String command = String.format("javac -cp %s:%s -d %s %s", CLASSPATH, SimpleProblemBuilder.CLASS_PATH, byteDirectory, sourceFile);
 		try {
 			int result = CommandUtils.runProcess(command);
 			// check whether it succeeds
