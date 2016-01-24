@@ -177,7 +177,8 @@ public class SimpleProblemBuilder implements Builder{
 		String byteDirectory = SimpleProblemBuilder.PATH_TO_STORE + SimpleProblemBuilder.BYTE_DIRECTORY_NAME;
 		String sourceFile = SimpleProblemBuilder.PATH_TO_STORE + SimpleProblemBuilder.SOURCE_DIRECTORY_NAME + "/"
 				+ problem.getName() + ".java";
-		String command = String.format("javac -cp %s -d %s %s", SimpleProblemBuilder.CLASS_PATH, byteDirectory, sourceFile);
+		String CLASSPATH = System.getenv("CLASSPATH");
+		String command = String.format("javac -cp %s:%s -d %s %s", CLASSPATH, SimpleProblemBuilder.CLASS_PATH, byteDirectory, sourceFile);
 		try {
 			int result = CommandUtils.runProcess(command);
 			// check whether it succeeds
