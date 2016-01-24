@@ -119,12 +119,12 @@ public class SimpleProblemParser implements Parser{
 			if (buf.charAt(i) == '$' && (i == 0 || buf.charAt(i - 1) != '\\')) {
 				counter = (counter + 1) % 2;
 				if (counter == 1) {
-					reading_problem_text = true;
-				} else {
 					reading_problem_text = false;
+				} else {
+					reading_problem_text = true;
 				}
 
-				if (reading_problem_text) {
+				if (!reading_problem_text) {
 					text.add(current_text);
 				} else {
 					fields.add(current_text);
