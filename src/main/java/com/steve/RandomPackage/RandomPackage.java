@@ -84,7 +84,7 @@ public class RandomPackage {
     	    System.setOut(out);
     	}
     	
-		return String.format("<graph graph-data=\\\"%s\\\"/>", Arrays.toString(jsonResult.getBytes(StandardCharsets.UTF_8)));
+		return String.format("<graph>\\\"%s\\\"</graph>", Arrays.toString(jsonResult.getBytes(StandardCharsets.UTF_8)));
 	}
 
 }
