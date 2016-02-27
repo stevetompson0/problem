@@ -25,6 +25,17 @@ public class CommandUtils {
 		pro.waitFor();
 		return pro.exitValue();
 	}
+	
+	public static int runProcessAndArgumentsPrintSTDOUT(String[] cmdarray) throws IOException, InterruptedException {
+		Process pro = Runtime.getRuntime().exec(cmdarray);
+		String line = null;
+		BufferedReader in = new BufferedReader(new InputStreamReader(pro.getInputStream()));
+		while ((line = in.readLine()) != null) {
+			System.out.println(line);
+		}
+		pro.waitFor();
+		return pro.exitValue();
+	}
 
 	public static void printLines(String name, InputStream ins) throws IOException {
 		String line = null;

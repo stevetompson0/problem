@@ -64,9 +64,12 @@ public class RandomPackage {
     	String jsonResult = "";
     	try
     	{
-    		String command = String.format("/usr/bin/python3 %s \"%s\"", PYTHON_LOCATION, code);
+    		String[] cmdarray = new String[3];
+    		cmdarray[0] = "/usr/bin/python3";
+    		cmdarray[1] = PYTHON_LOCATION;
+    		cmdarray[2] = code;
     		try {
-    			CommandUtils.runProcessPrintSTDOUT(command);
+    			CommandUtils.runProcessAndArgumentsPrintSTDOUT(cmdarray);
     		} catch (Exception e) {
     			e.printStackTrace();
     			System.out.println("error");
