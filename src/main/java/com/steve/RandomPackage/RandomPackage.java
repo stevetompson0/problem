@@ -68,6 +68,7 @@ public class RandomPackage {
     		try {
     			CommandUtils.runProcessPrintSTDOUT(command);
     		} catch (Exception e) {
+    			e.printStackTrace();
     			System.out.println("error");
     		}
     		
