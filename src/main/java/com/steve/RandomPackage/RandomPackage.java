@@ -64,7 +64,7 @@ public class RandomPackage {
     	String jsonResult = "";
     	try
     	{
-    		String command = String.format("/usr/bin/python3 %s %s", PYTHON_LOCATION, code);
+    		String command = String.format("/usr/bin/python3 %s \"%s\"", PYTHON_LOCATION, code);
     		try {
     			CommandUtils.runProcessPrintSTDOUT(command);
     		} catch (Exception e) {
