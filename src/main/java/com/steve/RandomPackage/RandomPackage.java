@@ -82,7 +82,7 @@ public class RandomPackage {
     	    System.setOut(out);
     	}
     	
-		return jsonResult;
+		return String.format("<graph graph-data=\"%s\"/>", jsonResult);
 	}
 
 }
