@@ -1,5 +1,13 @@
 package com.steve.RandomPackage;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import com.steve.builder.SimpleProblemBuilder;
+import com.steve.problem.ProblemAPI;
+import com.steve.problem.ProblemApp;
+import com.steve.util.CommandUtils;
+
 public class RandomPackage {
 	public static int RandomOdd(int a, int b) {
 		int m = (int) Math.ceil((a - 1) / 2);
@@ -39,6 +47,38 @@ public class RandomPackage {
 		double result = a + Math.random() * (b - a);
 		result = Double.valueOf(String.format("%." + n + "f", result));
 		return result;
+	}
+	
+	/**
+	 * use pseudo to generate a random structure in json format
+	 * @param code -- pseudo code
+	 * @return String of json format of this random structure
+	 */
+	public static String RandomStructure(String code) {
+		final String PYTHON_LOCATION = "/home/ec2-user/pseudoCompiler/pseudoStr.py";
+		
+		// redirect system out 
+    	ByteArrayOutputStream writeTo = new ByteArrayOutputStream();
+    	PrintStream out = System.out;
+    	System.setOut(new PrintStream(writeTo));
+    	String jsonResult = "";
+    	try
+    	{
+    		String command = String.format("/usr/bin/python3 %s %s", PYTHON_LOCATION, code);
+    		try {
+    			CommandUtils.runProcessPrintSTDOUT(command);
+    		} catch (Exception e) {
+    			System.out.println("error");
+    		}
+    		
+    		jsonResult = new String(writeTo.toByteArray(), java.nio.charset.StandardCharsets.UTF_8);
+    	}
+    	finally
+    	{
+    	    System.setOut(out);
+    	}
+    	
+		return jsonResult;
 	}
 
 }
