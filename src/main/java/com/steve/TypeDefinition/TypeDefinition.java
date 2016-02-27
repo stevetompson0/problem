@@ -39,6 +39,9 @@ public class TypeDefinition {
 		else if (name.equals("DGraph")){
 			return "DGraph";
 		}
+		else if (name.equals("RandomStructure")) {
+			return "String";
+		}
 		else {
 			return "object";
 		}

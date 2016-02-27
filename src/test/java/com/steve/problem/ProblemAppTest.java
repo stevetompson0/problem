@@ -54,6 +54,34 @@ public class ProblemAppTest
     }
     
     @Test
+    public void testRandomStructureCreation()
+    {
+    	JSONObject obj = new JSONObject();
+    	// put variable json list
+    	JSONArray variableList = new JSONArray();
+    	variableList.add("RandomStructure a1");
+    	obj.put("VARIABLE", variableList);
+    	
+    	JSONArray generatorList = new JSONArray();
+    	generatorList.add("a1 = RandomPackage.RandomStructure(\"x = Queue.random(length=4, valrange=range(100))\");");
+    	obj.put("GENERATOR", generatorList);
+    	
+    	obj.put("BODY", "What is the result of dequeue for $a1$?");
+    	
+    	obj.put("ANSWER", "NA");
+    	// assert that PATH_TO_STORE exists
+    	assertNotNull(System.getenv("PATH_TO_STORE"));
+    	// expect exit code 1 which means creating succeeds
+    	String jsonInput = obj.toString();
+    	String[] args = new String[4];
+    	args[0] = "1";  // set mode to be create-mode
+    	args[1] = "id4"; // set problem id to be id3
+    	args[2] = "1"; // set problem type to be simpleProblem
+    	args[3] = jsonInput; // set jsonInput
+    	ProblemAPI.mainCall(args);
+    }
+    
+    @Test
     public void testFetch()
     {
     	// expect exit code 3 which means fetching succeeds
