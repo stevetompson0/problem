@@ -2,6 +2,8 @@ package com.steve.RandomPackage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 import com.steve.builder.SimpleProblemBuilder;
 import com.steve.problem.ProblemAPI;
@@ -82,7 +84,7 @@ public class RandomPackage {
     	    System.setOut(out);
     	}
     	
-		return String.format("<graph graph-data=\"%s\"/>", jsonResult);
+		return String.format("<graph graph-data=\\\"%s\\\"/>", Arrays.toString(jsonResult.getBytes(StandardCharsets.UTF_8)));
 	}
 
 }
